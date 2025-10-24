@@ -137,14 +137,6 @@ The application uses a mock API server with the following endpoints:
 - Form validation provides immediate user feedback
 - Loading spinners enhance user experience during API calls
 
-## Future Enhancements
-
-- Add user registration functionality
-- Implement real backend integration
-- Add item creation, editing, and deletion
-- Include more comprehensive error handling
-- Add internationalization support
-- Implement offline capabilities with service workers
 
 ## License
 
