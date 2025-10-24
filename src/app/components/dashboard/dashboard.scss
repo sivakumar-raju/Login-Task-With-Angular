@@ -1,0 +1,57 @@
+.dashboard-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #00386c;
+  color: #ffffff;
+}
+
+.dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+.welcome-card {
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0, 56, 108, 0.1);
+  border-left: 4px solid #00386c;
+}
+
+.welcome-message {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #00386c;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  box-shadow: 0 2px 4px rgba(0, 56, 108, 0.1);
+  transition: box-shadow 0.3s ease;
+  border: 1px solid #e5e7eb;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 56, 108, 0.15);
+    border-color: #00386c;
+  }
+}
+
+mat-card-actions {
+  padding: 16px;
+}
+
+button[mat-raised-button] {
+  margin-right: 8px;
+  background-color: #00386c;
+  color: #ffffff;
+  
+  &:hover {
+    background-color: #1a4d7a;
+  }
+}

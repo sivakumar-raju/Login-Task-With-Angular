@@ -1,0 +1,155 @@
+<mat-toolbar color="primary" class="list-toolbar">
+  <button mat-icon-button (click)="goToDashboard()" matTooltip="Back to Dashboard">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span>Items List</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="logout()" matTooltip="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="list-container">
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="page-title">Items Management</h1>
+      <p class="page-subtitle">View and manage your technology stack</p>
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="loadItems()" [disabled]="loading$ | async">
+        <mat-icon>refresh</mat-icon>
+        Refresh Items
+      </button>
+    </div>
+  </div>
+
+  <mat-card class="search-card" *ngIf="!(loading$ | async) && !(error$ | async)">
+    <mat-card-content>
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search items...</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="Type to search">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <div class="filter-chips">
+          <mat-chip-set>
+            <mat-chip 
+              *ngFor="let category of categories" 
+              [class.selected]="selectedCategory === category"
+              (click)="filterByCategory(category)">
+              {{ category }}
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Loading State -->
+  <div *ngIf="loading$ | async" class="loading-container">
+    <mat-spinner diameter="60"></mat-spinner>
+    <h3>Loading items...</h3>
+    <p>Please wait while we fetch your items</p>
+  </div>
+
+  <!-- Error State -->
+  <mat-card *ngIf="error$ | async as error" class="error-card">
+    <mat-card-content>
+      <div class="error-content">
+        <mat-icon color="warn">error_outline</mat-icon>
+        <h3>Error Loading Items</h3>
+        <p>{{ error }}</p>
+        <button mat-raised-button color="primary" (click)="loadItems()">
+          <mat-icon>refresh</mat-icon>
+          Try Again
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Items Grid -->
+  <div *ngIf="!(loading$ | async) && !(error$ | async)" class="items-section">
+    <div class="items-header">
+      <h2 class="items-count">
+        {{ filteredItems.length }} {{ filteredItems.length === 1 ? 'Item' : 'Items' }}
+        <span *ngIf="searchTerm || selectedCategory" class="filter-indicator">
+          (filtered)
+        </span>
+      </h2>
+      <div class="view-toggle">
+        <button mat-icon-button 
+                [class.active]="viewMode === 'grid'" 
+                (click)="setViewMode('grid')"
+                matTooltip="Grid View">
+          <mat-icon>grid_view</mat-icon>
+        </button>
+        <button mat-icon-button 
+                [class.active]="viewMode === 'list'" 
+                (click)="setViewMode('list')"
+                matTooltip="List View">
+          <mat-icon>view_list</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredItems.length === 0" class="empty-state">
+      <div class="empty-icon">
+        <mat-icon>search_off</mat-icon>
+      </div>
+      <h3>No Items Found</h3>
+      <p *ngIf="searchTerm || selectedCategory">
+        No items match your current search criteria. Try adjusting your filters.
+      </p>
+      <p *ngIf="!searchTerm && !selectedCategory">
+        There are no items to display at the moment.
+      </p>
+      <button mat-raised-button color="primary" (click)="clearFilters()" *ngIf="searchTerm || selectedCategory">
+        <mat-icon>clear</mat-icon>
+        Clear Filters
+      </button>
+      <button mat-raised-button color="primary" (click)="loadItems()" *ngIf="!searchTerm && !selectedCategory">
+        <mat-icon>refresh</mat-icon>
+        Load Items
+      </button>
+    </div>
+
+    <!-- Items Grid/List -->
+    <div *ngIf="filteredItems.length > 0" 
+         [class]="'items-' + viewMode"
+         class="items-container">
+      <div *ngFor="let item of filteredItems; trackBy: trackByItemId" 
+           class="item-card"
+           [@slideIn]>
+        <div class="card-header">
+          <div class="item-icon">
+            <mat-icon>{{ getItemIcon(item.name) }}</mat-icon>
+          </div>
+          <div class="item-badge">
+            <span class="item-id">#{{ item.id }}</span>
+          </div>
+        </div>
+        
+        <div class="card-content">
+          <h3 class="item-name">{{ item.name }}</h3>
+          <p class="item-description">{{ item.description }}</p>
+          <div class="item-category">
+            <mat-chip>{{ getItemCategory(item.name) }}</mat-chip>
+          </div>
+        </div>
+        
+        <!-- <div class="card-actions">
+          <button mat-icon-button matTooltip="View Details">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Edit Item">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Delete Item" color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

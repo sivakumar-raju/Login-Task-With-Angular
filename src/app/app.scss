@@ -1,0 +1,79 @@
+// App-level styles using primary color #00386c and white
+.app-container {
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #00386c;
+}
+
+// Global button styles
+.mat-mdc-raised-button {
+  background-color: #00386c !important;
+  color: #ffffff !important;
+  
+  &:hover {
+    background-color: #1a4d7a !important;
+  }
+  
+  &:disabled {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+  }
+}
+
+// Global toolbar styles
+.mat-toolbar {
+  background-color: #00386c !important;
+  color: #ffffff !important;
+}
+
+// Global card styles
+.mat-mdc-card {
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 56, 108, 0.1);
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 56, 108, 0.15);
+  }
+}
+
+// Global form field styles
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    border-radius: 8px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    
+    &:hover {
+      border-color: #d1d5db;
+    }
+    
+    &.mdc-text-field--focused {
+      border-color: #00386c;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(0, 56, 108, 0.1);
+    }
+  }
+}
+
+// Global spinner styles
+.mat-mdc-progress-spinner {
+  circle {
+    stroke: #00386c !important;
+  }
+}
+
+// Global icon styles
+.mat-icon {
+  color: #00386c;
+}
+
+// Global link styles
+a {
+  color: #00386c;
+  text-decoration: none;
+  
+  &:hover {
+    color: #1a4d7a;
+    text-decoration: underline;
+  }
+}
