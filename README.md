@@ -50,14 +50,14 @@ src/
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js : v24.4.1
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/sivakumar-raju/Login-Task-With-Angular.git
    cd angular-app
    ```
 
